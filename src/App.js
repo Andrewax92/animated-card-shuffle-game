@@ -16,6 +16,7 @@ function App() {
   const [turns, setTurns] = useState(0)
   const [choiceOne, setChoiceOne,] = useState(null)
   const [choiceTwo, setChoiceTwo] = useState(null)
+  const [disable, setDisable] = useState(false)
 
 
   // shuffling and array using the modern version of the Fisher–Yates  algorithm
@@ -41,11 +42,16 @@ function App() {
     setChoiceOne(null)
     setChoiceTwo(null)
     setTurns(prevTurns => prevTurns + 1)
+    setDisable(false)
   }
+  useEffect(() => {
+    shufflecards(cardImages)
+  }, [])
 
   useEffect(() => {
 
     if (choiceOne && choiceTwo) {
+      setDisable(true)
       if (choiceOne.src === choiceTwo.src) {
         setCards(prevCards => {
           return prevCards.map((card) => {
@@ -58,7 +64,7 @@ function App() {
         })
         resetTurn()
       } else {
-        resetTurn()
+        setTimeout(() => resetTurn(), 1000)
       }
     }
   }, [choiceOne, choiceTwo])
@@ -72,10 +78,17 @@ function App() {
       <div className="card-grid">
         {
           cards.map(card => (
-            <SingleCard key={card.id} card={card} handleChoice={handleChoice} />
+            <SingleCard
+              key={card.id}
+              card={card}
+              handleChoice={handleChoice}
+              flipped={card === choiceOne || card === choiceTwo || card.matched}
+              disabled={disable}
+            />
           ))
         }
       </div>
+      <p>Turns : {turns}</p>
     </div>
   );
 }

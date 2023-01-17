@@ -1,9 +1,61 @@
 .card{
-    position:relative
+  position:relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
 }
-.card img{
+
+
+.card__face {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+  }
+
+  .card__face--back {
+    transform: rotateY( 180deg );
+  }
+
+.card.is-flipped{
+    transform: rotateY(180deg);
+}
+/* .card img{
     width: 100%;
     display: block;
     border: 2px solid #fff;
     border-radius: 6px;
+} */
+/* .card:hover{
+    transform: rotateY(180deg);
+} */
+
+/* 
+.card-back .card-front{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+} */
+
+
+/* .card .front{
+    transform: rotateY(90deg);
+    transition: all ease-in 0.2s;
+
+    position: absolute;
+} */
+/* .flipped .front {
+    transform: rotateY(0deg);
+    transition-delay: 0.2s;
+    transform-style: preserve-3d;
 }
+.card .back{
+    transition: all ease-in 0.2s;
+    transition-delay: 0.2s
+}
+.flipped .back{
+    transform:rotateY(90deg);
+    transition-delay:0s
+} */
